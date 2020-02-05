@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class Friend {
 
@@ -12,8 +15,15 @@ public class Friend {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@JsonProperty("first-name")
 	private String fname;
+	@JsonProperty("last-name")
 	private String lname;
+	
+	private int age;
+	
+	@JsonIgnore
+	private boolean married;
 	
 	public Friend() {
 		
@@ -47,6 +57,22 @@ public class Friend {
 
 	public void setLname(String lname) {
 		this.lname = lname;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public boolean isMarried() {
+		return married;
+	}
+
+	public void setMarried(boolean married) {
+		this.married = married;
 	}
 
 	@Override
