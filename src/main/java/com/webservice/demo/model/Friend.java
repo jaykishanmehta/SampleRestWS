@@ -1,5 +1,6 @@
 package com.webservice.demo.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,9 @@ public class Friend {
 	
 	@JsonIgnore
 	private boolean married;
+	
+	@Embedded
+	private Address address;
 	
 	public Friend() {
 		
@@ -73,6 +77,14 @@ public class Friend {
 
 	public void setMarried(boolean married) {
 		this.married = married;
+	}
+	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	@Override
