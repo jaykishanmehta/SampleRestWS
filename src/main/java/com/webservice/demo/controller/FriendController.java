@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webservice.demo.model.Friend;
 import com.webservice.demo.service.FriendService;
+import com.webservice.demo.util.ErrorMessage;
 
 @RestController
 public class FriendController {
@@ -36,9 +38,11 @@ public class FriendController {
 			throw new ValidationException("Friend cannot be created");
 	}
 	
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ValidationException.class)
-	ResponseEntity<String> exceptionHandler(ValidationException e) {
-		return new ResponseEntity<String> (e.getMessage(), HttpStatus.BAD_REQUEST);
+	ErrorMessage exceptionHandler(ValidationException e) {
+		return  new ErrorMessage("400", e.getMessage());
 	}
 
 	@GetMapping("/friend")
