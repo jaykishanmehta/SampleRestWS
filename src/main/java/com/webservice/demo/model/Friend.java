@@ -1,10 +1,13 @@
 package com.webservice.demo.model;
 
-import javax.persistence.Embedded;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,8 +29,8 @@ public class Friend {
 	@JsonIgnore
 	private boolean married;
 	
-	@Embedded
-	private Address address;
+	@OneToMany(cascade = CascadeType.ALL)
+	List<Address> addresses;
 	
 	public Friend() {
 		
@@ -79,14 +82,14 @@ public class Friend {
 		this.married = married;
 	}
 	
-	public Address getAddress() {
-		return address;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Friend [id=" + id + ", firstName=" + fname + ", lastName=" + lname + "]";
