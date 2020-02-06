@@ -2,10 +2,13 @@ package com.webservice.demo.controller;
 
 import java.util.Optional;
 
+import javax.xml.bind.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +27,18 @@ public class FriendController {
 	FriendService friendService;
 	
 	@PostMapping("/friend")
-	Friend create(@RequestBody Friend friend) {
-		return friendService.save(friend);
+	ResponseEntity<Friend> create(@RequestBody Friend friend) throws ValidationException {
+		if(friend.getId() == 0
+				&& friend.getFname() != null
+				&& friend.getLname() != null)
+			return new ResponseEntity<Friend>(friendService.save(friend), HttpStatus.OK);
+		else 
+			throw new ValidationException("Friend cannot be created");
+	}
+	
+	@ExceptionHandler(ValidationException.class)
+	ResponseEntity<String> exceptionHandler(ValidationException e) {
+		return new ResponseEntity<String> (e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/friend")
