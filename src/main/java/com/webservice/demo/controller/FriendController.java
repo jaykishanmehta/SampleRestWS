@@ -3,6 +3,8 @@ package com.webservice.demo.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,8 +34,12 @@ public class FriendController {
 	}
 	
 	@PutMapping("/friend")
-	Friend update(@RequestBody Friend friend) {
-		return friendService.save(friend);
+	ResponseEntity<Friend> update(@RequestBody Friend friend) {
+		
+		if(friendService.findById(friend.getId()).isPresent())
+			return new ResponseEntity<Friend>(friendService.save(friend), HttpStatus.OK);
+		else
+			return new ResponseEntity<Friend>(friend, HttpStatus.BAD_REQUEST);
 	}
 	
 	@DeleteMapping("/friend/{id}")
