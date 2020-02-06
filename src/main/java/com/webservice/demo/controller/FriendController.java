@@ -39,12 +39,6 @@ public class FriendController {
 	}
 	
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(ValidationException.class)
-	ErrorMessage exceptionHandler(ValidationException e) {
-		return  new ErrorMessage("400", e.getMessage());
-	}
-
 	@GetMapping("/friend")
 	Iterable<Friend> read() {
 		return friendService.findAll();
