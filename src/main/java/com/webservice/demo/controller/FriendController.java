@@ -93,8 +93,9 @@ public class FriendController {
 		
 	}
 	
-	@GetMapping("/wrongURL")
-	public Friend somethingIsWrong() throws ValidationException {
+	@GetMapping("/wrongurl")
+	public Friend somethingIsWrong(){
 		throw new ValidationException("Something is wrong");
 	}
+	
 }

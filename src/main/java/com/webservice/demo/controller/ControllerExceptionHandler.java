@@ -3,7 +3,7 @@ package com.webservice.demo.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.xml.bind.ValidationException;
+import javax.validation.ValidationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -25,6 +25,7 @@ public class ControllerExceptionHandler {
 	ErrorMessage exceptionHandler(ValidationException e) {
 		return  new ErrorMessage("400", e.getMessage());
 	}
+	
 	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
