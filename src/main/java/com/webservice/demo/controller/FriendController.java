@@ -2,25 +2,23 @@ package com.webservice.demo.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webservice.demo.model.Friend;
 import com.webservice.demo.service.FriendService;
-import com.webservice.demo.util.ErrorMessage;
 
 @RestController
 public class FriendController {
@@ -28,14 +26,19 @@ public class FriendController {
 	@Autowired
 	FriendService friendService;
 	
+//	@PostMapping("/friend")
+//	ResponseEntity<Friend> create(@RequestBody Friend friend) throws ValidationException {
+//		if(friend.getId() == 0
+//				&& friend.getFname() != null
+//				&& friend.getLname() != null)
+//			return new ResponseEntity<Friend>(friendService.save(friend), HttpStatus.OK);
+//		else 
+//			throw new ValidationException("Friend cannot be created");
+//	}
+	
 	@PostMapping("/friend")
-	ResponseEntity<Friend> create(@RequestBody Friend friend) throws ValidationException {
-		if(friend.getId() == 0
-				&& friend.getFname() != null
-				&& friend.getLname() != null)
-			return new ResponseEntity<Friend>(friendService.save(friend), HttpStatus.OK);
-		else 
-			throw new ValidationException("Friend cannot be created");
+	Friend create(@Valid @RequestBody Friend friend) throws ValidationException {
+		return friendService.save(friend);
 	}
 	
 	
