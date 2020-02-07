@@ -39,7 +39,13 @@ public class Friend {
 	public Friend() {
 		
 	}
-	
+
+	public Friend(@NotBlank String fname, @NotBlank String lname) {
+		super();
+		this.fname = fname;
+		this.lname = lname;
+	}
+
 	public Friend(int id, String firstName, String lastName) {
 		super();
 		this.id = id;
