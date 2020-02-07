@@ -1,5 +1,7 @@
 package com.webservice.demo;
 
+import javax.validation.ValidationException;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,10 @@ public class IntegrationTest {
 		friends = friendController.read();
 		Assertions.assertThat(friends).noneMatch(f -> f.getFname().equalsIgnoreCase("ABCD") 
 				&& f.getLname().equalsIgnoreCase("XYZ"));
+	}
+	
+	@Test
+	public void errorHandlingValidationExceptionThrown() {
+		org.junit.jupiter.api.Assertions.assertThrows(ValidationException.class, () -> friendController.somethingIsWrong());
 	}
 }

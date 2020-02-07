@@ -3,7 +3,7 @@ package com.webservice.demo.controller;
 import java.util.Optional;
 
 import javax.validation.Valid;
-import javax.xml.bind.ValidationException;
+import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,5 +91,10 @@ public class FriendController {
 		else
 			return friendService.findAll();
 		
+	}
+	
+	@GetMapping("/wrongURL")
+	public Friend somethingIsWrong() throws ValidationException {
+		throw new ValidationException("Something is wrong");
 	}
 }
