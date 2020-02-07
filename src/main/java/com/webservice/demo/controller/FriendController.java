@@ -37,13 +37,13 @@ public class FriendController {
 //	}
 	
 	@PostMapping("/friend")
-	Friend create(@Valid @RequestBody Friend friend) throws ValidationException {
+	public Friend create(@Valid @RequestBody Friend friend) {
 		return friendService.save(friend);
 	}
 	
 	
 	@GetMapping("/friend")
-	Iterable<Friend> read() {
+	public Iterable<Friend> read() {
 		return friendService.findAll();
 	}
 	
@@ -57,8 +57,14 @@ public class FriendController {
 	}
 	
 	@DeleteMapping("/friend/{id}")
-	void delete(@PathVariable Integer id) {
-		friendService.deleteById(id);;
+	public void delete(@PathVariable Integer id) {
+		
+		try {
+			friendService.deleteById(id);			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	@GetMapping("/friend/{id}")
