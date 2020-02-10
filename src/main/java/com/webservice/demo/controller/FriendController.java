@@ -20,6 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.webservice.demo.model.Friend;
 import com.webservice.demo.service.FriendService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
+
+@Api(tags = {"Friend Resource"})
+@SwaggerDefinition(tags = {
+    @Tag(name = "Friend Resource", description = "Handles all the request related to friend CRUD")
+})
 @RestController
 public class FriendController {
 	
